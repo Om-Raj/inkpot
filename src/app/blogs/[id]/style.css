@@ -1,0 +1,44 @@
+.post-heading {
+    margin: 3rem 0;
+}
+
+.post-heading-title {
+    text-align: center;
+}
+
+.post-heading-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+}
+
+.post-edit-button, .post-delete-button {
+    font-size: 1.5rem;
+}
+
+.post-heading-detail {
+    font-style: italic;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.post-author span {
+    text-decoration: 1.5px dashed underline hsl(34, 78%, 66%);
+    text-underline-offset: 2px;
+}
+
+.post-date {
+    font-size: .9rem;
+    align-self: flex-end;
+}
+
+.post-content {
+    margin: 2rem 0;
+    text-align: justify;
+    line-height: 2;
+    white-space: pre-wrap;
+}

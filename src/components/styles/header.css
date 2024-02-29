@@ -1,0 +1,26 @@
+.header {
+  background-color: hsl(34, 78%, 96%);
+  border-bottom: 1px solid hsl(34, 78%, 81%);
+  padding: 1.2rem;
+}
+
+.navbar {
+  margin: auto;
+  max-width: 50rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.75rem;
+}
+
+.navbar ul {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.navbar li {
+  list-style: none;
+}
+

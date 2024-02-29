@@ -1,0 +1,94 @@
+.comments {
+    margin: 4rem 0;
+}
+
+.comments h3 {
+    margin: 2rem 0;
+}
+
+.comments ul {
+    padding: 0 40px;
+}
+
+.comments li {
+    list-style-type: none;
+    margin: 2rem 0;
+}
+
+.comment-header {
+    margin: .5rem 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    font-style: italic;
+}
+.comment-header-author span {
+    text-decoration: 1.5px dashed underline hsl(34, 78%, 66%);
+    text-underline-offset: 2px;
+}
+.comment-header-date {
+    font-size: .9rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+.comment-delete-btn {
+    font-size: 1.2rem;
+}
+.comment-body {
+    padding-left: 1rem;
+}
+
+.comment-form {
+    display: flex;
+    flex-flow: row wrap;
+    flex-grow: 1 0;
+    align-items: jenter;
+    gap: 1rem;
+    font-size: 0.9rem;
+    padding: 0 20px;
+}
+.comment-form input, button {
+    background-color: hsl(34, 78%, 96%);
+    padding: .7rem;
+    border-radius: 8px;
+    border: 1px solid hsl(34, 78%, 66%);
+}
+
+.comment-form input:focus, button {
+  outline: none;
+}
+
+.comment-form input[type="text"] {
+    flex-grow: 5;
+    flex-basis: 200px;
+    overflow: hidden;
+}
+.comment-form button  {
+    font-size: 1.5rem;
+    color: hsl(34, 78%, 16%);
+    flex-grow: 1;
+    background-color: hsl(34, 78%, 81%);
+}
+
+@media screen and (max-width: 35rem) {
+    .comments form {
+        padding: 0;
+    }
+    .comments ul {
+        padding: 0;
+    }
+    .comment-header {
+        flex-direction: column;
+        gap: 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .comment-header-date {
+        padding: 0 16px;
+    }
+}

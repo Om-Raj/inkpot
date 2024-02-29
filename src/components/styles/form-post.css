@@ -1,0 +1,34 @@
+.form-post {
+  width: 50rem;
+  max-width: 80vw;
+  display: grid;
+  gap: 2rem;
+}
+
+.form-title {
+  text-align: center;
+}
+
+.form-post input, textarea {
+  display: block; 
+  background-color: hsl(34, 78%, 96%);
+  padding: .75rem;
+  border-radius: 8px;
+  border: 1px solid hsl(34, 78%, 66%);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}
+
+.btn-pair {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.btn-pair > input {
+  padding: .5rem 2rem;
+  background-color: hsl(34, 78%, 81%);
+}
+

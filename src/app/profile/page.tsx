@@ -16,7 +16,11 @@ const Profile = async () => {
             createdAt: 'desc'
         },
         include: {
-            author: true
+            author: {
+                select: {
+                    name: true
+                }
+            }
         }
     })
 

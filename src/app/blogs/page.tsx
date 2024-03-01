@@ -1,4 +1,5 @@
 import BlogList from "@/components/BlogList"
+import prisma from "@/lib/db"
 
 export const metadata = {
   title: "Inkpot - Blogs",
@@ -7,19 +8,23 @@ export const metadata = {
 
 const BlogsPage = async () => {
 
-  const posts = await prisma?.post.findMany({
+  const posts = await prisma.post.findMany({
     orderBy: {
       createdAt: 'desc',
     },
     include: {
-      author: true,
+      author: {
+        select: {
+          name: true,
+        }
+      }
     }
   })
 
   return (
     <main className="main">
       <h1><center>All Posts</center></h1>
-      <BlogList className="bloglist" posts={posts} />
+      <BlogList posts={posts} />
     </main>
   )
 }

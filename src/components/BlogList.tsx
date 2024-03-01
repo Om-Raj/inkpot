@@ -1,10 +1,22 @@
-import { Post } from "@prisma/client"
+import { Prisma } from "@prisma/client"
 import { format } from "date-fns"
 import Link from "next/link"
 import { FC } from "react"
 
+const postWithAuthorName = Prisma.validator<Prisma.PostDefaultArgs>()({
+  include: {
+    author: {
+      select: {
+        name: true,
+      }
+    }
+  }
+})
+
+type PostWithAuthorName = Prisma.PostGetPayload<typeof postWithAuthorName>
+
 interface BlogListProps {
-    posts: Post[],
+    posts: PostWithAuthorName[] | undefined
 }
 
 const BlogList: FC<BlogListProps> = ({posts}) => {

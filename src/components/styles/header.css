@@ -1,4 +1,4 @@
-.header {
+/* .header {
   background-color: hsl(34, 78%, 96%);
   border-bottom: 1px solid hsl(34, 78%, 81%);
   padding: 1.2rem;
@@ -23,4 +23,95 @@
 .navbar li {
   list-style: none;
 }
+.toggle-menu-btn {
+  display: none;
+}
 
+@media screen and (max-width:35rem) {
+  .header {
+    position: relative;
+  }
+  .toggle-menu-btn {
+    display: block;
+    position: absolute;
+    top: 2rem;
+    right: 2.5rem;
+  }
+  #collapsible {
+    display: absolute;
+    top: 5.5rem;
+  }
+} */
+
+ .header {
+  background-color: hsl(34, 78%, 96%);
+  border-bottom: 1px solid hsl(34, 78%, 81%);
+  padding: 1.2rem;
+}
+.navbar {
+  margin: auto;
+  max-width: 50rem;
+  font-size: 1.75rem;
+  background-color: hsl(34, 78%, 96%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  width: 100%;
+  opacity: 1;
+  z-index: 99;
+}
+#toggle-menu-btn {
+  display: none;
+  margin-right: 1.5rem;
+  z-index: 100;
+}
+#overlay {
+  position: fixed;
+  display: none;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.5);
+}
+#collapsible {
+  display: flex;
+  justify-content: flex-end;
+  width: -webkit-fill-available;
+  gap: 4rem;
+  align-items: flex-start;
+  font-size: 1.2rem;
+  list-style: none;
+}
+#navbar-brand {
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 760px) {
+  .navbar {
+    font-size: 1.25rem;
+  }
+  #toggle-menu-btn {
+    font-size: 1.75rem;
+    display: block;
+  }
+  #collapsible {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    z-index: 10;
+    width: 66vw;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    flex-direction: column;
+    background-color: hsl(34, 78%, 96%);
+    padding: 128px 24px 24px 24px;
+    opacity: 1;
+    transition: 0.2s ease-out;
+  }
+}

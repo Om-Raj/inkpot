@@ -10,7 +10,7 @@ interface FormEditPostProps {
     id: string,
     title: string,
     content: string,
-    authorEmail: string
+    authorEmail: string | null
 }
 
 const FormEditPost: FC<FormEditPostProps> = ({id, title, content, authorEmail}) => {

@@ -39,7 +39,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
               </div>
               {post?.id && user?.email && post.authorEmail===user.email && (
                 <div className="post-heading-btns">
-                  <EditPostButton id={post.id} authorEmail={post.authorEmail}/>
+                  <EditPostButton id={post.id}/>
                   <DeletePostButton id={post.id} authorEmail={post.authorEmail} />
                 </div>)
               }

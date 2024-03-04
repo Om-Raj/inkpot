@@ -1,7 +1,7 @@
 "use client"
 import "./styles/header.css"
 import Link from "next/link"
-import ButtonLogout from "./ButtonLogout";
+import ButtonLogout from "./SignOutButton";
 import { useSession } from "next-auth/react";
 import { CiMenuFries } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
@@ -42,12 +42,18 @@ const Header = () => {
 							<li>
 								<Link href="/profile">Profile</Link>
 							</li>
-							<ButtonLogout />
+							<li>
+								<Link href="/api/auth/signout">Sign Out</Link>
+							</li>
 						</>
-					) : (
-						<li>
-							<Link href="/api/auth/signin">Sign In</Link>
-						</li>
+					) : (<>
+							<li>
+								<Link href="/sign-in">Sign In</Link>
+							</li>
+							<li>
+								<Link href="/sign-up">Sign Up</Link>
+							</li>
+						</>
 					)}
 				</ul>
 				<div id="toggle-menu-btn" onClick={toggleMenu}>

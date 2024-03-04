@@ -18,10 +18,12 @@ const FormEditPost: FC<FormEditPostProps> = ({id, title, content, authorEmail}) 
         title,
         content
     });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoading(true);
 		try {
 			const response = await axios.patch('/api/posts', {
                 id,
@@ -31,9 +33,11 @@ const FormEditPost: FC<FormEditPostProps> = ({id, title, content, authorEmail}) 
 			})
 			if (response.status === 200) {
 				router.push(`/blogs/${id}`);	
+                router.refresh();
 			}
 		} catch (error) {
 			console.error(error);
+            setIsLoading(false);
 		}
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -72,7 +76,8 @@ const FormEditPost: FC<FormEditPostProps> = ({id, title, content, authorEmail}) 
                 />
                 <input 
                     type="submit" 
-                    value="Submit"
+                    value={isLoading?"Loading...":"Submit"}
+                    disabled={isLoading} 
                 />
             </div>
         </form>

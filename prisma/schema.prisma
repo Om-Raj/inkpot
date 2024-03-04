@@ -5,19 +5,20 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 // For Local Development
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url      = env("DATABASE_URL")
 }
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+//   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+// }
 
 model Account {
   id                String  @id @default(cuid())
@@ -48,10 +49,13 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
+  name          String
+  email         String    @unique
+  password      String?
   emailVerified DateTime?
   image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
@@ -67,21 +71,22 @@ model VerificationToken {
 }
 
 model Post {
-  id        String    @id @default(cuid())
-  title     String
-  content   String
+  id          String    @id @default(cuid())
+  title       String
+  content     String
   author      User?     @relation(fields: [authorEmail], references: [email], onDelete: Cascade)
-  authorEmail    String?
-  createdAt DateTime  @default(now())
-  comments  Comment[]
+  authorEmail String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  comments    Comment[]
 }
 
 model Comment {
-  id     String  @id @default(cuid())
-  text   String
-  createdAt DateTime  @default(now())
-  author   User?   @relation(fields: [authorEmail], references: [email], onDelete: Cascade)
+  id          String   @id @default(cuid())
+  text        String
+  createdAt   DateTime @default(now())
+  author      User?    @relation(fields: [authorEmail], references: [email], onDelete: Cascade)
   authorEmail String?
-  Post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId String?
+  Post        Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId      String?
 }

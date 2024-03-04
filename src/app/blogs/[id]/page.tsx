@@ -14,19 +14,20 @@ interface BlogDetailPageProps {
 }
 
 const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
-  const user = await getCurrentUsser();
-  const post = await prisma.post.findFirst({
-    where: {
-      id: params.id,
-    },
-    include: {
-      author: true,
-    },
-  });
-  console.log(post);
+  try {
+    const user = await getCurrentUsser();
+    const post = await prisma.post.findFirst({
+      where: {
+        id: params.id,
+      },
+      include: {
+        author: true,
+      },
+    });
 
   return (
     <main className="main">
+      {post?(
         <div>
           <div className="post-heading">
             <h2 className="post-heading-title">{post?.title}</h2>
@@ -46,9 +47,21 @@ const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
             </div>
           </div>
           <div className="post-content">{post?.content}</div>
-        </div>
         <Comments postId={params.id}/>
+      </div>):(
+        <div className="center">
+          <h2>
+            <center>
+              The post you are looking for is not available.
+            </center>
+          </h2>
+        </div>
+      )}
     </main>
   )
+  } catch(error) {
+    console.log(error);
+  }
+
 }
 export default BlogDetailPage

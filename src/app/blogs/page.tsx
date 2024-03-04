@@ -1,4 +1,5 @@
 import BlogList from "@/components/BlogList"
+import Search from "@/components/Search"
 import prisma from "@/lib/db"
 
 export const metadata = {
@@ -6,25 +7,27 @@ export const metadata = {
   description: "All blogs written by Inkpot users."
 }
 
-const BlogsPage = async () => {
+const BlogsPage = async ({searchParams} : {searchParams?: {query?: string}}) => {
 
-  const posts = await prisma.post.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      author: {
-        select: {
-          name: true,
-        }
-      }
-    }
-  })
+  // const posts = await prisma.post.findMany({
+  //   orderBy: {
+  //     createdAt: 'desc',
+  //   },
+  //   include: {
+  //     author: {
+  //       select: {
+  //         name: true,
+  //       }
+  //     }
+  //   }
+  // })
+  const query = searchParams?.query;
 
   return (
     <main className="main">
       <h1><center>All Posts</center></h1>
-      <BlogList posts={posts} />
+      <Search placeholder="Search" />
+      <BlogList query={query} />
     </main>
   )
 }

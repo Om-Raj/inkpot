@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { Libre_Baskerville } from "next/font/google";
 import Provider from "@/components/Provider";
 import Head from "next/head";
+import { Toaster } from "@/components/ui/toaster";
 
 const libre_baskerville = Libre_Baskerville({subsets: ['latin'], weight: ['400', '700']});
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <Header />
           {children}
         </Provider>
+        <Toaster />
       </body>
     </html>
   );

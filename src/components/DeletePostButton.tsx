@@ -21,6 +21,7 @@ const DeletePost: FC<DeletePostProps> = ({id, authorEmail}) => {
             })
             if (response.status === 200) {
                 router.push("/blogs")
+                router.refresh();
             }
         } catch(error){
             console.error(error)

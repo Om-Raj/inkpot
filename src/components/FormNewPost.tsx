@@ -12,11 +12,13 @@ const FormNewPost = () => {
         title: '',
         content: ''
     });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const {data} = useSession();
     const router = useRouter();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const response = await axios.post('api/posts', formData);
             if (response.status === 200) {
@@ -24,6 +26,7 @@ const FormNewPost = () => {
             }
         } catch (error) {
             console.error(error);
+            setIsLoading(false);
         }
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,8 +67,8 @@ const FormNewPost = () => {
                 <input 
                     className={!data?.user?.email?"disabled":""}
                     type="submit" 
-                    value="Submit"
-                    disabled={!data?.user?.email} 
+                    value={isLoading?"Submitting...":"Submit"}
+                    disabled={!data?.user?.email || isLoading} 
                 />
             </div>
         </form>

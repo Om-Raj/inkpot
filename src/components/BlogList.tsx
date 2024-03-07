@@ -27,81 +27,73 @@ interface BlogListProps {
 
 const BlogList: FC<BlogListProps> = async ({ query, authorEmail }) => {
   let posts;
-  if (authorEmail) {
-    posts = await prisma.post.findMany({
-      where: {
-        authorEmail
-      },
-      include: {
-        author: {
-          select: {
-            name: true
+  try {
+    if (authorEmail) {
+      posts = await prisma.post.findMany({
+        where: {
+          authorEmail
+        },
+        include: {
+          author: {
+            select: {
+              name: true
+            }
           }
         }
-      }
-    })
-  } else if (query) {
-    query = query.split(/\W+/).filter((val) => val!=='').join(' & ');
-    posts = await prisma.post.findMany({
-      where: {
-        OR: [
-          {
-            title: {
-              search: query,
-              mode: 'insensitive'
+      })
+    } else if (query) {
+      query = query.split(/\W+/).filter((val) => val!=='').join(' & ');
+      posts = await prisma.post.findMany({
+        where: {
+          OR: [
+            {
+              title: {
+                search: query,
+                mode: 'insensitive'
+              }
+            },
+            {
+              content: {
+                search: query,
+                mode: 'insensitive'
+              }
+            },
+          ]
+        },
+        orderBy: {
+          updatedAt: 'desc'
+        },
+        include: {
+          author: {
+            select: {
+              name: true
             }
-          },
-          {
-            title: {
-              contains: query,
-              mode: 'insensitive'
-            }
-          },
-          {
-            content: {
-              search: query,
-              mode: 'insensitive'
-            }
-          },
-          {
-            content: {
-              contains: query,
-              mode: 'insensitive'
-            }
-          },
-        ]
-      },
-      orderBy: {
-        updatedAt: 'desc'
-      },
-      include: {
-        author: {
-          select: {
-            name: true
           }
         }
-      }
-    })
-  } else {
-    posts = await prisma.post.findMany({
-      take: 30,
-      orderBy: {
-        updatedAt: 'desc',
-      },
-      include: {
-        author: {
-          select: {
-            name: true
+      })
+    } else {
+      posts = await prisma.post.findMany({
+        take: 30,
+        orderBy: {
+          updatedAt: 'desc',
+        },
+        include: {
+          author: {
+            select: {
+              name: true
+            }
           }
         }
-      }
-    })
+      })
+    }
+  } catch(error) {
+    posts = undefined;
+    console.log('Something went wrong!')
   }
 
-  return (
-    <div className="bloglist">
-      {posts.length ? (
-      <>
+  if (posts && posts.length) {
+    return (
+      <div className="bloglist">
         { posts?.map((post) => (
           <Link className="post-card rounded-md" href={`/blogs/${post.id}`} key={post.id}>
             <h3>{post.title}</h3>
@@ -110,13 +102,14 @@ const BlogList: FC<BlogListProps> = async ({ query, authorEmail }) => {
             <p className="post-card-username"><i>~ {post.author?.name}</i></p>
           </Link>
         ))}
-      </>
-      ):(
-        <h3>
-          <center>There are no posts available.</center>
-        </h3>
-      )}
-    </div>
-  )
+      </div>
+    )
+  } else {
+    return (
+      <h3 className="my-28">
+        <center>There are no posts available.</center>
+      </h3>
+    )
+  }
 }
 export default BlogList

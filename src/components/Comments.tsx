@@ -4,7 +4,7 @@ import "./styles/comments.css"
 import prisma from "@/lib/db"
 import { formatDistanceToNowStrict } from "date-fns"
 import DeleteCommentButton from "./DeleteCommentButton"
-import { getCurrentUsser } from "@/lib/session"
+import { getCurrentUser } from "@/lib/session"
 
 interface CommentsProps {
 	postId: string
@@ -22,7 +22,7 @@ const Comments: FC<CommentsProps> = async ({postId}) => {
 		author: true,
 		}
 	})
-	const user = await getCurrentUsser();
+	const user = await getCurrentUser();
 
 	return (
 		<div className="comments">

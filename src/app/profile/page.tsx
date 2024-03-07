@@ -1,7 +1,9 @@
 import BlogList from "@/components/BlogList";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
-import { getCurrentUsser } from "@/lib/session"
+import { getCurrentUser } from "@/lib/session"
 import Link from "next/link";
+import { Suspense } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 
 export const metadata = {
@@ -9,7 +11,7 @@ export const metadata = {
   description: "User account section. Access and edit your blog posts.",
 }
 const Profile = async ({searchParams} : {searchParams?: {query?: string}}) => {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     // const posts = await prisma.post.findMany({
     //     where: {
     //         authorEmail: user?.email
@@ -53,7 +55,9 @@ const Profile = async ({searchParams} : {searchParams?: {query?: string}}) => {
                 </section>
                 <section>
                 <h2>My Posts</h2>
-                    <BlogList authorEmail={user.email} />
+                    <Suspense fallback={<LoadingSpinner position="relative"/>}>
+                        <BlogList authorEmail={user.email} />
+                    </Suspense>
                 </section>
             </>) : (
             <h3>

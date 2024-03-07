@@ -17,6 +17,7 @@ import Link from 'next/link';
 import GoogleSignInButton from '../GoogleSignInButton';
 import { useRouter } from 'next/navigation';
 import { useToast } from '../ui/use-toast';
+import { signOut } from 'next-auth/react';
 
 const FormSchema = z
   .object({
@@ -50,8 +51,11 @@ const EditNameForm = () => {
         description: 'User name changed successfully',
         variant: 'default'
       })
-      router.push('/profile');
-      router.refresh();
+      const data = await signOut({
+        redirect: false,
+        callbackUrl: '/sign-in'
+      })
+      router.push(data.url)
     } else {
       const data = await response.json();
       toast({

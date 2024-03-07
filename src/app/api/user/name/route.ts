@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { compare, hash } from 'bcrypt';
 import * as z from 'zod';
-import { getCurrentUsser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/session";
 
 // define a schema for input validation
 const userSchema = z
@@ -13,7 +13,7 @@ const userSchema = z
 
 
 export async function PATCH(req: Request) {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     try {
         const body = await req.json();
         const { name } = userSchema.parse(body);

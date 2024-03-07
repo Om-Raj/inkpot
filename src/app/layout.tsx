@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { Libre_Baskerville } from "next/font/google";
 import Provider from "@/components/Provider";
-import Head from "next/head";
 import { Toaster } from "@/components/ui/toaster";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const libre_baskerville = Libre_Baskerville({subsets: ['latin'], weight: ['400', '700']});
 
@@ -24,7 +24,9 @@ export default function RootLayout({
       <body className={libre_baskerville.className}>
         <Provider>
           <Header />
-          {children}
+          <Suspense>
+            {children}
+          </Suspense>
         </Provider>
         <Toaster />
       </body>

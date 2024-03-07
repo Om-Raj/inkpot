@@ -5,7 +5,7 @@ import { FC } from "react"
 import { format } from "date-fns"
 import EditPostButton from "@/components/EditPostButton"
 import DeletePostButton from "@/components/DeletePostButton"
-import { getCurrentUsser } from "@/lib/session"
+import { getCurrentUser } from "@/lib/session"
 
 interface BlogDetailPageProps {
   params: {
@@ -15,7 +15,7 @@ interface BlogDetailPageProps {
 
 const BlogDetailPage: FC<BlogDetailPageProps> = async ({ params }) => {
   try {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     const post = await prisma.post.findFirst({
       where: {
         id: params.id,

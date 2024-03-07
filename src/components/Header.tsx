@@ -10,18 +10,21 @@ import { useState } from "react";
 const Header = () => {
 	const { data } = useSession();
 	const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
+	const isMobile = window.innerWidth <= 760;
 	const toggleMenu = () => {
 		const collapsible = document.getElementById("collapsible")!;
 		const overlay = document.getElementById("overlay")!;
-		if (collapsible.style.display === "flex") {
-			collapsible.style.display = "none";
+		console.log(collapsible.style.right)
+		if (collapsible.style.right === "0px") {
+			collapsible.style.right = "-66vw";
 			overlay.style.display = "none";
 			document.body.style.overflow = 'unset';
 		}
 		else {
-			collapsible.style.display = "flex";
+			collapsible.style.right = "0px";
 			overlay.style.display = "block";
-			document.body.style.overflow = 'hidden';
+			if (isMobile)
+				document.body.style.overflow = 'hidden';
 		}
 		setMenuOpen(!menuOpen)
 	}
@@ -32,26 +35,26 @@ const Header = () => {
 				<Link href="/" id="navbar-brand">InkPot</Link>
 				<ul id="collapsible">
 					<li>
-						<Link href="/blogs">Blogs</Link>
+						<Link href="/blogs" onClick={toggleMenu}>Blogs</Link>
 					</li>
 					{data?.user?.email ? (
 						<>
 							<li>
-								<Link href="/create">Create</Link>
+								<Link href="/create" onClick={toggleMenu}>Create</Link>
 							</li>
 							<li>
-								<Link href="/profile">Profile</Link>
+								<Link href="/profile" onClick={toggleMenu}>Profile</Link>
 							</li>
 							<li>
-								<Link href="/api/auth/signout">Sign Out</Link>
+								<Link href="/api/auth/signout" onClick={toggleMenu}>Sign Out</Link>
 							</li>
 						</>
 					) : (<>
 							<li>
-								<Link href="/sign-in">Sign In</Link>
+								<Link href="/sign-in" onClick={toggleMenu}>Sign In</Link>
 							</li>
 							<li>
-								<Link href="/sign-up">Sign Up</Link>
+								<Link href="/sign-up" onClick={toggleMenu}>Sign Up</Link>
 							</li>
 						</>
 					)}

@@ -1,11 +1,11 @@
-import { getCurrentUsser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/session";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { now } from "next-auth/client/_utils";
 
 
 export async function POST(req: Request) {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     try {
         if (!user?.email) {
             return NextResponse.json({message: 'Not Authenticated!'}, {status: 401})
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     try {
         const { id, authorEmail, title, content } = await req.json();
         if (!user?.email || user?.email !== authorEmail) {
@@ -45,7 +45,7 @@ export async function PATCH(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     try {
         const { id, authorEmail } = await req.json();
         if (!user?.email || user?.email !== authorEmail) {

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { compare, hash } from 'bcrypt';
 import * as z from 'zod';
-import { getCurrentUsser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/session";
 
 // define a schema for input validation
 const userSchema = z
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     try {
         const body = await req.json();
         const { password, newPassword } = ChangePasswordSchema.parse(body);
@@ -105,7 +105,7 @@ export async function PATCH(req: Request) {
 
 
 export async function DELETE(req: Request) {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     try {
         const body = await req.json();
         const { password } = await DeleteAccountSchema.parse(body);

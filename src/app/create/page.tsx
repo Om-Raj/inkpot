@@ -1,5 +1,5 @@
 import FormNewPost from "@/components/FormNewPost"
-import { getCurrentUsser } from "@/lib/session"
+import { getCurrentUser } from "@/lib/session"
 
 export const metadata = {
   title: "Inkpot - New Post",
@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 const NewPost = async() => {
-  const user = await getCurrentUsser();
+  const user = await getCurrentUser();
   return (
     <div className="main">
         <div className="center">

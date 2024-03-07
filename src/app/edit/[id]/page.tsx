@@ -1,6 +1,6 @@
 import FormEditPost from "@/components/FormEditPost"
 import prisma from "@/lib/db"
-import { getCurrentUsser } from "@/lib/session"
+import { getCurrentUser } from "@/lib/session"
 import { FC } from "react"
 
 interface EditPostPageProps {
@@ -10,7 +10,7 @@ interface EditPostPageProps {
 }
 
 const EditPostPage: FC<EditPostPageProps> = async ({params}) => {
-    const user = await getCurrentUsser();
+    const user = await getCurrentUser();
     const post = await prisma.post.findUnique({
         where: {
             id: params.id
